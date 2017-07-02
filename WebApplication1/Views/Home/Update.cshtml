@@ -1,0 +1,134 @@
+﻿<link href="@Url.Content("~/Content/pp.css")" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm("Update", "Home", FormMethod.Post))
+{
+    <div id="rr"></div>
+        <div id="dd"></div>
+        <div id="zz">
+            添加成功
+            <div id="CloseView"><input type="button" value="X" onclick="closev()"></div>
+        </div>
+        <div id=Top>
+            <div id="Top-Left">
+                <img src="~/Content/top-left.png" />
+            </div>
+
+        </div>
+            <div id="Second">
+                <div id="Second-Left">
+                    <div id="Second-Left-1">
+                        <a href="#">发起流程</a>
+                    </div>
+                    <div id="Second-Left-2">
+                        <a href="#">工作办理</a>
+                    </div>
+                    <div id="Second-Left-3">
+                        <a href="#">办公列表</a>
+                    </div>
+                    <div id="Second-Left-4">
+                        <a href="http://localhost:11235/Home">公司公告</a>
+                    </div>
+                    <div id="Second-Left-5">
+                        <a href="#">工作汇报</a>
+                    </div>
+                    <div id="Second-Left-6">
+                        <a href="#">日程安排</a>
+                    </div>
+                    <div id="Second-Left-7">
+                        <a href="#">任务管理</a>
+                    </div>
+                    <div id="Second-Left-8">
+                        <a href="#">计划管理</a>
+                    </div>
+                    <div id="Second-Left-9">
+                        <a href="#">知识库</a>
+                    </div>
+                    <div id="Second-Left-9">
+                        <a href="#">会议管理</a>
+                    </div>
+                </div>
+                <div id="Second-Right">
+                    <div id="Second-Right-Top">
+                        <span id="new">新增工作汇报</span>
+                    </div>
+                    <div id="Second-Right-Down">
+                        <div id="Second-Right-Down-1">
+                            <div id="Type">
+                                <span>*类型</span>
+                            </div>
+                            <div id="select">
+                                <select id="choose">
+                                    <option>--请选择--</option>
+                                </select>
+                            </div>
+                            <div id="date">
+                                <span>日期</span>
+                                <input type="text" id="date1" />
+                                @*<input type="text" id="date2" />*@
+                            </div>
+                        </div>
+                        <div id="Second-Right-Down-2">
+                            <div id="report">
+                                <span>*汇报给</span>
+                            </div>
+                            <div id="report-1">
+                                @*<input type="text" id="Name"/>*@
+                                @Html.TextBox("Name", "", new { @class = "input-text" })
+                            </div>
+                            <div id="people">
+                                <a href="#">选择</a>
+                            </div>
+                            <div id="title">
+                                <span>标题</span>
+                                @*<input type="text" id="Advantage" />*@
+                                @Html.TextBox("Advantage", "", new { @class = "input-text" })
+                            </div>
+                        </div>
+                        <div id="Second-Right-Down-3">
+                            <div id="closer">
+                                <span id="close">*本次总结</span>
+                            </div>
+                            @*<textarea id="Disadvantage"></textarea>*@
+                            @Html.TextArea("Disadvantage", "", new { @class = "text-area" })
+                        </div>
+                        <div id="Second-Right-Down-4">
+                            <div id="plan">
+                                <span>下次计划</span>
+                            </div>
+                            @*<textarea id="Country"></textarea>*@
+                            @Html.TextArea("Country", "", new { @class = "text-area" })
+                        </div>
+                        <div id="Second-Right-Down-5">
+                            <div id="fujan">
+                                <span>附件</span>
+                            </div>
+                            <div id="doc">
+                                <input type="button" value="选择文件" />
+                                <span>未选择任何文件</span>
+                            </div>
+                        </div>
+                        <div id="Second-Right-Down-6">
+                            @*<div id="save">*@
+                            <form method="post">
+                                <input id="save" type="submit" value="保存" name="action" onclick='this.form.action="@Url.Action("Update")"' />
+                            </form>
+                            @*<a  onclick='this.form.action="@Url.Action("Update")"'>保存</a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+                <script>
+                    if (@ViewBag.sdasf==1)
+                    {
+                        $("#dd").attr("style", "z-index: 2;");
+                        $("#zz").attr("style", "z-index: 3;");
+                    }else{}
+                    function closev() {
+                        $("#dd").attr("style", "z-index: -2;");
+                        $("#zz").attr("style", "z-index: -3;");
+                    }
+                </script>
+
+                @*@Scripts.Render("~/Content/pp");*@
+}

@@ -1,0 +1,196 @@
+﻿@{
+
+}
+@using WebApplication1.Models;
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="@Url.Content("~/Content/ee.css")" rel="stylesheet" type="text/css" />
+    <style>
+        .class {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <div id="ff"></div>
+    <div id="bg"></div>
+    @{
+        if (@ViewBag.b != null)
+        {
+            foreach (eeeModel a in @ViewBag.b)
+            {
+                <div id="ty">
+                    <div id="Name1">
+                        Name:<input type="text" class="ViewValue" value="@a.Name" />
+                        <div id="CloseView"><input type="button" value="X" onclick="closeview()"></div>
+                    </div>
+                    <div id="Advantage1">Advantage:<input type="text" class="ViewValue" value="@a.Advantage"></div>
+                    <div id="Disadvantage1">Disadvantage:<input type="text" class="ViewValue" value="@a.Disadvantage"></div>
+                    <div id="Country1">Country:<input type="text" class="ViewValue" value="@a.Country"></div>
+                    <div id="RM">RM:<input type="text" class="ViewValue" value="@a.Recommend_Models"></div>
+                </div>
+            }
+        }
+    }
+    <input type="hidden" id="show_per_page" />
+    <div id="Pt">
+        <div id="pic">
+            <img src="~/Content/top-left.png" />
+        </div>
+    </div>
+    <div id="left-p">
+        <div id="Second-Left">
+            <div id="Second-Left-1">
+                <a href="#">发起流程</a>
+            </div>
+            <div id="Second-Left-2">
+                <a href="#">工作办理</a>
+            </div>
+            <div id="Second-Left-3">
+                <a href="#">办公列表</a>
+            </div>
+            <div id="Second-Left-4">
+                <a href="#">公司公告</a>
+            </div>
+            <div id="Second-Left-5">
+                <a href="#">工作汇报</a>
+            </div>
+            <div id="Second-Left-6">
+                <a href="#">日程安排</a>
+            </div>
+            <div id="Second-Left-7">
+                <a href="#">任务管理</a>
+            </div>
+            <div id="Second-Left-8">
+                <a href="#">计划管理</a>
+            </div>
+            <div id="Second-Left-9">
+                <a href="#">知识库</a>
+            </div>
+            <div id="Second-Left-9">
+                <a href="#">会议管理</a>
+            </div>
+        </div>
+    </div>
+    <div id="right-p">
+        <div id="gonggao">
+            <div id="gonggaoliebao">
+                <input type="text" value="公告列表" id="gongaobiaoti" />
+            </div>
+            <div id="xinzeng">
+                <a href="/Home/Update">新增</a>
+            </div>
+            <div id="del">
+
+            </div>
+        </div>
+        <div id="top-r">
+            <div id="top-left">
+                <select id="huibaoleixing">
+                    <option>公告标题</option>
+                </select>
+                <span>发布日期</span>
+                <input type="text" id="shuru" placeholder="请输入日期" />
+                <form method="post" style="line-height: 2; float: right; margin-right: 2rem;">
+                    @*<input type="text" id="guanjianzi" placeholder="请输入关键字" />*@
+                    @Html.TextBox("guanjianzi", "", new { @placeholder = "请输入关键字" })
+
+                    <input type="submit" name="action" onclick='this.form.action="@Url.Action("Index")"' value="查询" id="chaxun" />
+                </form>
+            </div>
+
+            @*<input type="submit" value="SubmitToAbout1" name="action"/>
+                <input type="submit" value="SubmitToAbout2" name="action" />*@
+
+            <div id="changeMyPage">
+                <form method="post">
+                    <input id="BtnPre" type="submit" value="上一页" name="action" onclick='this.form.action="@Url.Action("Index")"' />
+                    <input id="BtnNex" type="submit" value="下一页" name="action" onclick='this.form.action="@Url.Action("Index")"' />
+                </form>
+            </div>
+        </div>
+        <div id="typem" class="divline">
+            <div class="checkboxeddiv">
+                <input type="checkbox" class="checkboxeds" onclick="checkall()" />
+            </div>
+            <div class="chaozuo">Name</div>
+            <div class="biaoti">Advantage</div>
+            <div class="faburen">Disadvantage</div>
+            <div class="riqi">Country</div>
+            <div class="leixing">Recommend Models</div>
+        </div>
+        <div id="con">
+
+            <form method="post">
+                @{if (@ViewBag.b != null)
+                    {
+                        foreach (eeeModel a in @ViewBag.b)
+                        {
+                            //string Id = @a[0].ToString();
+                            <div id="typem" class="divline">
+                                <div class="checkboxeddiv" onclick="">
+                                    @Html.CheckBox("checkboxeds", new { @id = @a.Id, @class = "checkboxeds", @value = @a.Id })
+                                    @*<input type="checkbox" class="checkboxeds" onclick=""  value="@a[0]"/>*@
+                                </div>
+                                <div class="xuhao" id="@a.Id"></div>
+                                <div class="chaozuo" onclick="zz()">@a.Name</div>
+                                <div class="biaoti">@a.Advantage</div>
+                                <div class="faburen">@a.Disadvantage</div>
+                                <div class="riqi">@a.Country</div>
+                                <div class="leixing">@a.Recommend_Models</div>
+                            </div>
+                        }
+                    }
+                }
+                <input type="submit" id="deda" value="删除" name="action" onclick='this.form.action="@Url.Action("Index")"' />
+            </form>
+
+            <script src="@Url.Content("~/Scripts/eE.js")" type="text/javascript"></script>
+            <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+            <script>
+                function zz() {
+                    $("#bg").attr("style", "z-index: 2;");
+                    $("#ty").attr("style", "z-index: 3;");
+                }
+                function closeview() {
+                    $("#bg").attr("style", "z-index: -2;");
+                    $("#ty").attr("style", "z-index: -3;");
+                }
+                function checkall() {
+                    var check = document.getElementsByClassName("checkboxeds");
+                    for (var i = 0; i < check.length; i++) {
+                        if (check[0].checked) {
+                            if (check[i].checked == false) {
+                                check[i].checked = true;
+                            }
+                        } else if (check[0].checked == false) {
+                            check[i].checked = false;
+                        }
+
+                        //if (check[0].checked == false) {
+                        //    check[i].checked = false;
+                        //}
+                    }
+                }
+                //if() {
+                //    var checkboxeds = document.getElementsByClassName("checkboxeds");
+                //    for (var k = 0; k < checkboxeds.length; k++) {
+                //        if (checkboxeds[k].checked) {
+                //            ViewBag.s = 1;
+                //        }
+                //    }
+                //}
+
+                $.ajax({
+                    //type:"Get",
+                    url: "/WebService1.asmx/HelloWorld", async: false, success: function (result) {
+                        alert(result.children[0].innerHTML);
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</body>
+</html>

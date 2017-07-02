@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "About";
+
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+@model  WebApplication1.Models.WorldModel
+    @*using{
+             @Html.EditorForModel()
+            <input type="submit" value = "保存" />
+            < h2 > ViewBag.CurrentTime </ h2 >
+            @Html.TextBoxFor(m=>m.name,new { @class="input-text"});
+            @Html.ValidationMessgaeFor(m=>m.name)
+            @Html.ValidationSummary(true,"错误");
+
+    }*@
+<p>Use this area to provide additional information.</p>
+}
