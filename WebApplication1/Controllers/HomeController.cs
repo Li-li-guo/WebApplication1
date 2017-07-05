@@ -355,8 +355,56 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-        public ActionResult Lg()
+        public ActionResult Lg(UserAthModels uam)
         {
+            using (MySqlConnection mysqlconnection = new MySqlConnection(_conn))
+            {
+                string Name = Request["Name"];
+                string PassWord = Request["Password"];
+                if (Name != null)
+                {
+                    int a;
+                    //List<UserModels> usermodel = new List<UserModels>();
+                    a = dbhelper.AccSer(Name);
+
+                    if (a < 0)
+                    {
+                        return Content("该用户不存在");
+                    }
+                }
+                if (Name != null || PassWord != null)
+                {
+                    int a;
+                    a = dbhelper.AccLg(Name, PassWord);
+
+                    if (a > 0)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Content("账号或密码错误");
+                    }
+                }
+                return View();
+            }
+        }
+
+        public ActionResult Reg(UserIdentityModels uim)
+        {
+            if (ModelState.IsValid)
+            {
+                string Name = Request["Name"];
+                string PassWord = Request["Password"];
+                UserModels usermodel = new UserModels();
+                usermodel.Name = Name;
+                usermodel.PassWord = PassWord;
+                if (DBHelper.InsertData<UserModels>(usermodel) > 0)
+                {
+                    ViewBag.sdasf = 1;
+                }
+            }
+
             return View();
         }
     }

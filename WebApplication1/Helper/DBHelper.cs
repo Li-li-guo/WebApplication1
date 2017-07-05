@@ -47,7 +47,7 @@ namespace WebApplication1.Helper
             {
                 connection.Open();
                 MySqlCommand mycommand = new MySqlCommand(sqlStr, connection);
-                int a = mycommand.ExecuteNonQuery();
+                int a =Convert.ToInt32(mycommand.ExecuteScalar()) ;
                 return a;
             }
         }
@@ -102,6 +102,22 @@ namespace WebApplication1.Helper
             {
                 return false;
             }
+        }
+
+        public int AccSer(string key)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT Id FROM user WHERE Name='"+key+"'");
+            int id = ExecuteSql(Convert.ToString(strSql), null);
+            return id;
+        }
+
+        public int AccLg(string Name ,string Password)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT Id FROM user WHERE Name='"+ Name + "' and PassWord='"+ Password +"'");
+            int id = ExecuteSql(Convert.ToString(strSql), null);
+            return id;
         }
 
         //列表数据
