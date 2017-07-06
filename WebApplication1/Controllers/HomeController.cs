@@ -57,6 +57,19 @@ namespace WebApplication1.Controllers
         //[OutputCache(CacheProfile = "TestConfigCache")]
         public ActionResult Index(string action)
         {
+            if (Session["Id"]!=null)
+            {
+                int s; 
+                List<UserAthModels> userathmodel = new List<UserAthModels>();
+                userathmodel = DBHelper.SerData<UserAthModels>(Convert.ToString(Session["Id"]),null);
+                //Type type = userathmodel.GetType();
+                //PropertyInfo[] propertyinfo = type.GetProperties();
+                //s = Convert.ToInt32(propertyinfo[2]);
+                s = userathmodel[0].RoldId;
+                Session["RoleID"] = s;
+                
+            }
+
             //Inherited();
             if (TempData["DataIndex"] == null)
             {
@@ -268,10 +281,11 @@ namespace WebApplication1.Controllers
             if (action == "查询")
             {
                 string key = Request["guanjianzi"];
+                string Vol = ("and state = 0");
                 if (key != null)
                 {
                     List<eeeModel> eeemodel = new List<eeeModel>();
-                    eeemodel = DBHelper.SerData<eeeModel>(key);
+                    eeemodel = DBHelper.SerData<eeeModel>(key, Vol);
                     //using (MySqlConnection connection = new MySqlConnection(_conn))
                     //{
                     //    connection.Open();
@@ -286,8 +300,18 @@ namespace WebApplication1.Controllers
 
         public ActionResult Update(string action)
         {
+           
+
             if (action == "保存")
             {
+                if (Convert.ToInt32(Session["RoleID"]) == 2)
+                {
+
+                }
+                else
+                {
+                    ViewBag.s = 1;
+                }
                 string Name = Request["Name"];
                 string Advantage = Request["Advantage"];
                 string Disadvantage = Request["Disadvantage"];
@@ -355,18 +379,19 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        
         public ActionResult Lg(UserAthModels uam)
         {
             using (MySqlConnection mysqlconnection = new MySqlConnection(_conn))
             {
                 string Name = Request["Name"];
-                string PassWord = Request["Password"];
+                string PassWord = Request["Password"];   
                 if (Name != null)
                 {
                     int a;
                     //List<UserModels> usermodel = new List<UserModels>();
                     a = dbhelper.AccSer(Name);
-
+                    Session["Id"] = a;
                     if (a < 0)
                     {
                         return Content("该用户不存在");
@@ -376,9 +401,9 @@ namespace WebApplication1.Controllers
                 {
                     int a;
                     a = dbhelper.AccLg(Name, PassWord);
-
                     if (a > 0)
                     {
+                        
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -404,7 +429,6 @@ namespace WebApplication1.Controllers
                     ViewBag.sdasf = 1;
                 }
             }
-
             return View();
         }
     }

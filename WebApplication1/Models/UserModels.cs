@@ -31,10 +31,11 @@ namespace WebApplication1.Models
 
     public class UserAthModels
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
         public string PassWord { get; set; }
+        public int RoldId { get; set; }
     }
 }

@@ -107,7 +107,7 @@ namespace WebApplication1.Helper
         public int AccSer(string key)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT Id FROM user WHERE Name='"+key+"'");
+            strSql.Append("SELECT Id FROM userAth WHERE Name='" + key+"'");
             int id = ExecuteSql(Convert.ToString(strSql), null);
             return id;
         }
@@ -115,7 +115,7 @@ namespace WebApplication1.Helper
         public int AccLg(string Name ,string Password)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT Id FROM user WHERE Name='"+ Name + "' and PassWord='"+ Password +"'");
+            strSql.Append("SELECT Id FROM userAth WHERE Name='" + Name + "' and PassWord='"+ Password +"'");
             int id = ExecuteSql(Convert.ToString(strSql), null);
             return id;
         }
@@ -208,7 +208,7 @@ namespace WebApplication1.Helper
         }
 
         //关键字查询
-        public static List<T> SerData<T>(string key)
+        public static List<T> SerData<T>(string key,string Vol)
         {
             int count = 0;
             List<T> list = new List<T>();
@@ -219,12 +219,12 @@ namespace WebApplication1.Helper
             foreach (var c in propertyinfo)
             {
                 object valuename = c.Name;
-                if (count == 0)
-                {
-                    count++;
-                    continue;
-                }
-                if (count > 1)
+                //if (count == 0)
+                //{
+                //    count++;
+                //    continue;
+                //}
+                if (count > 0)
                 {
                     strSql.Append(" or ");
                 }
@@ -237,7 +237,7 @@ namespace WebApplication1.Helper
             }
             strSql.Append(")");
             //strSql.Append("Name like '%" + key + "%' or Advantage like '%" + key + "%' or Disadvantage like '%" + key + "%' or Country like '%" + key + "%' or Recommend_Models like '%" + key + "%')");
-            strSql.Append(" and state=0");
+            strSql.Append(Vol);
             using (MySqlConnection connection = new MySqlConnection(_conn))
             {
                 connection.Open();
